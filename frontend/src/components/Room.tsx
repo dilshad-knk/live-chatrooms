@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { VscSend } from "react-icons/vsc";
 import SetUserName from './SetUserName';
@@ -29,7 +29,6 @@ export default function Room() {
 
 
 
-    console.log(messages, 'mmmmmmmmmmmmmmmmmmmmmm');
 
 
 
@@ -117,8 +116,14 @@ export default function Room() {
         }
     }
 
+   
 
-
+const leaveRoom = () => {
+    if (websocket.current && websocket.current.readyState === WebSocket.OPEN) {
+        websocket.current.close();
+        console.log('WebSocket disconnected');
+            }
+}
 
     return (
 
@@ -133,7 +138,7 @@ export default function Room() {
                         <MdDoubleArrow className='size-16 text-green-600' />
                         {roomName}
                     </div>
-                    <button className='bg-red-600 my-4 px-4 rounded'>
+                    <button className='bg-red-600 my-4 px-4 rounded' onClick={leaveRoom}>
                         Exit
                     </button>
 
